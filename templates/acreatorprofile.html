@@ -1,0 +1,64 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="admin-content" style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    <style>
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #343a40;
+        }
+
+        strong {
+            color: #007bff;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h2>{{ creator.name }}'s Profile</h2>
+    
+    <p>Username: {{ creator.username }}</p>
+    <p>Average Rating: {{ average_rating }}</p>
+    <p>Total Songs: {{ total_songs }}</p>
+
+    <h3>Uploaded Songs</h3>
+    <ul>
+        {% for song in uploaded_songs %}
+            <li>
+                <strong>{{ song.title }}</strong> by {{ song.artist }}
+                <a href="{{ url_for('aread_lyrics', song_id=song.id) }}" style="color: #007bff; text-decoration: none;">Read Lyrics</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

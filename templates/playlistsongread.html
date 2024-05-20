@@ -1,0 +1,98 @@
+<!-- playlistsongread.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ song.title }} - Playlist: {{ playlist.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3>{{ song.title }} | {{ playlist.name }}</h3>
+        
+        <p>
+            <strong>Details:</strong><br>
+            <span>{{ song.artist }} | Duration : {{ song.duration }} | Upload Date: {{ song.date_created.strftime('%d-%m-%Y') }} | Average Rating: {% if song.ratings %}{{ song.ratings|average }}{% else %}Not Rated{% endif %}  </span>
+        </p>
+
+        <pre>{{ lyrics }}</pre>
+
+        
+
+        <div class="audio-player">
+            <audio controls>
+                <source src="../{{song.file_path.replace('\\', '/') }}" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="{{ url_for('playlistsongread', playlist_id=playlist.id, song_index=song_index - 1) }}" {% if song_index == 0 %}class="disabled"{% endif %}>Previous Song</a>
+            <a href="{{ url_for('view_playlist', playlist_id=playlist.id) }}">Back to Playlist {{playlist.name}}</a>
+            <a href="{{ url_for('playlistsongread', playlist_id=playlist.id, song_index=song_index + 1) }}" {% if song_index == playlist.songs|length - 1 %}class="disabled"{% endif %}>Next Song</a>
+</div>
+    </div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(/static/music-guitar-performance-electric-guitar.jpg); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; 
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px; 
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px; 
+        }
+
+        .audio-player {
+            margin-top: 20px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+
+        .navigation-buttons a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease; 
+        }
+
+        .navigation-buttons a:hover {
+            background-color: #2c3e50; 
+        }
+
+        .disabled {
+            background-color: #bdc3c7;
+            color: #7f8c8d;
+            cursor: not-allowed;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Album{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    
+    <h2 style="color: #007bff; margin-bottom: 20px;">Edit Album: {{ album.name }}</h2>
+
+    <form method="post" action="{{ url_for('edit_album', album_id=album.id) }}" style="margin-bottom: 20px;">
+        <div style="margin-bottom: 20px; text-align: left;">
+            <label for="album_name" style="font-weight: bold; margin-bottom: 5px; color: #333;">Album Name:</label>
+            <input type="text" class="form-control" id="album_name" name="album_name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" value="{{ album.name }}" required>
+        </div>
+
+        <div style="margin-bottom: 20px; text-align: left;">
+            <label for="selected_songs" style="font-weight: bold; margin-bottom: 5px; color: #333;">Select Songs:</label>
+            <select multiple class="form-control" id="selected_songs" name="selected_songs" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                {% for song in songs %}
+                <option value="{{ song.id }}" {% if song in album.songs %}selected{% endif %}>{{ song.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Save Changes</button>
+    </form>
+    
+</div>
+{% endblock %}

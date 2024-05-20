@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}View Playlist: {{ playlist.name }}{% endblock %}
+
+{% block content %}
+    <div style="max-width: 600px; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 20px; color: #007bff;">{{ playlist.name }}</h2>
+        <ul style="list-style: none; padding: 0;">
+            {% for song in playlist.songs %}
+            <li style="margin-bottom: 15px; border: 1px solid #ced4da; border-radius: 4px; padding: 15px; background-color: #fff;">
+                {{ song.title }} - {{ song.artist }} ({{ song.duration }})
+                <a href="{{ url_for('playlistsongread', playlist_id=playlist.id, song_index=loop.index0) }}" style="display: inline-block; background-color: #007bff; color: #fff; padding: 8px 15px; border-radius: 4px; text-decoration: none; margin-left: 10px;">Play Now</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

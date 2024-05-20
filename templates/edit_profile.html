@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+    <div style="max-width: 400px; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 20px; color: #007bff;">Edit Your Name</h2>
+        <form method="post" action="{{ url_for('edit_profile') }}" style="margin-bottom: 20px;">
+            <div style="margin-bottom: 15px;">
+                <label for="new_name" style="display: block; margin-bottom: 5px; color: #495057; font-weight: bold;">New Name:</label>
+                <input type="text" id="new_name" name="new_name" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box;" value="{{ user.name }}" required>
+            </div>
+            <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Update Name</button>
+        </form>
+    </div>
+{% endblock %}

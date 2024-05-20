@@ -1,0 +1,55 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="admin-content" style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    <style>
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h2>Album Details</h2>
+
+    <h3>{{ album.name }}</h3>
+
+    <h4>Songs</h4>
+    <ul>
+        {% for song in album.songs %}
+            <li>{{ song.title }} by {{ song.artist }}</li>
+            <a href="{{ url_for('aread_lyrics', song_id=song.id) }}" style="color: #007bff; text-decoration: none;">Play Now</a>
+        {% endfor %}
+    </ul>
+
+    
+
+    <a href="{{ url_for('songs_and_albums') }}" style="color: #007bff; text-decoration: none; display: block; margin-top: 20px;">Back to Songs and Albums</a>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-content" style="max-width: 600px; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #007bff;">Album Details</h2>
+
+    <h3 style="color: #007bff;">{{ album.name }}</h3>
+
+    <h4 style="color: #007bff;">Songs</h4>
+    <ul style="list-style: none; padding: 0;">
+        {% for song in album.songs %}
+            <li style="margin-bottom: 10px; border-bottom: 1px solid #ced4da; padding-bottom: 5px;">
+                {{ song.title }} by {{ song.artist }}
+                <a href="{{ url_for('read_lyrics', song_id=song.id) }}" style="color: #007bff; text-decoration: none; margin-left: 10px;">Play Song</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('dashboard') }}" style="display: block; margin-top: 20px; color: #007bff; text-decoration: none;">Back To Dashboard</a>
+</div>
+{% endblock %}

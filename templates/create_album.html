@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Album</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Create Album</h2>
+        <form method="post" action="{{ url_for('create_album') }}">
+            <div style="margin-bottom: 20px;">
+                <label for="album_name">Album Name:</label>
+                <input type="text" style="width: 100%;" name="album_name" required>
+            </div>
+            <div>
+                <label>Songs:</label>
+                <ul>
+                    {% for song in songs %}
+                        <li>
+                            <input type="checkbox" style="margin-right: 5px;" name="selected_songs" value="{{ song.id }}">
+                            {{ song.title }} - {{ song.artist }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button type="submit" style="background-color: #28a745; color: #fff; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer;">Create Album</button>
+        </form>
+    </div>
+
+</body>
+</html>

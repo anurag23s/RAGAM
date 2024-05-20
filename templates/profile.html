@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Profile{% endblock %}</title>
+    
+    <style>
+        body {
+            background-color: #e3dac9 ;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            margin: 0 auto;
+            margin-left: 100px;
+            margin-right: 100px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .profile-info p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #95ff00;
+            border: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2 class="mb-0">Your Profile</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="profile-info">
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>Name:</strong> {{ user.name }}</p>
+                            <p><strong>Role:</strong> {{ user.role }}</p>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Edit Name</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+</body>
+
+</html>

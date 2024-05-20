@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block user_greeting %}Hey, {{ session['name'] }}!{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container" style="background-color: #e3dac9;">
+        <h2>Welcome to the Dashboard, {{ session['name'] }}!</h2>
+
+        <div class="recommended-songs">
+            <h3>Recommended Songs</h3>
+            <div class="song-list">
+                {% for song in songs %}
+                    {% if song.flag == 1 %}
+                        <div class="song-card flagged">
+                    {% else %}
+                        <div class="song-card">
+                    {% endif %}
+                        <div class="song-image">
+                            <img src="../static/artworks-bfrVU4o5TQyi2q56-lE1nTw-t500x500.jpg" alt="{{ song.title }}">
+                        </div>
+                        <div class="song-info">
+                            <h4>{{ song.title }}</h4>
+                            <p class="artist">{{ song.artist }} | {{ song.duration }}</p>
+                            {% if song.flag == 1 %}
+                                <p>*FLAGGED</p>
+                            {% endif %}
+                        </div>
+                        <div class="song-buttons">
+                            <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                                <button type="submit">Play Now</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="playlists">
+            <h3>Playlists</h3>
+            <a href="{{ url_for('create_playlist') }}" class="playlist-button">Create Playlist</a>
+            <div class="playlist-list">
+                {% for playlist in user_playlists %}
+                    
+                        <div class="song-card">
+                            <div class="song-image">
+                                <img src="../static/playlist.jpg" alt="{{ playlist.name }}">
+                            </div>
+                            <div class="song-info">
+                                <h4><a href="{{ url_for('view_playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a></h4>
+                            </div>
+                            <div class="song-buttons">
+                                <a href="{{ url_for('edit_playlist', playlist_id=playlist.id) }}" class="playlist-button">Edit</a>
+                                <a href="{{ url_for('delete_playlist', playlist_id=playlist.id) }}" class="delete-button">Delete</a>
+                            </div>
+                        </div>
+                    
+                {% endfor %}
+            </div>
+            
+        </div>
+
+        
+<div class="genres">
+    <h3>Genres</h3>
+    <div class="genre-list">
+        <h4>Rock</h4>
+        <div class="song-list">
+            {% for song in rock_songs %}
+            {% if song.flag == 1 %}
+            <div class="song-card flagged">
+        {% else %}
+        <div class="song-card">
+        {% endif %}            
+        <div class="song-image">
+            <img src="../static/artworks-000598616381-95y7hx-t500x500.jpg" alt="{{ song.title }}">
+        </div>
+                    <div class="song-info">
+                        <h4>{{ song.title }}</h4>
+                        <p class="artist">{{ song.artist }} | {{ song.duration }}</p>
+                        {% if song.flag == 1 %}
+                            <p>*FLAGGED</p>
+                        {% endif %}
+                    </div>
+                    <div class="song-buttons">
+                        <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                            <button type="submit">Play Now</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h4>Jazz</h4>
+        <div class="song-list">
+            {% for song in jazz_songs %}
+            {% if song.flag == 1 %}
+                <div class="song-card flagged">
+            {% else %}
+                <div class="song-card">
+            {% endif %}
+            <div class="song-image">
+                <img src="../static/audience-band-concert-crowd.jpg" alt="{{ song.title }}">
+            </div>
+                    <div class="song-info">
+                        <h4>{{ song.title }}</h4>
+                        <p class="artist">{{ song.artist }} | {{ song.duration }}</p>
+                        {% if song.flag == 1 %}
+                            <p> FLAGGED </p>
+                            <p> By Admin</p>
+                        {% endif %}
+                    </div>
+                    <div class="song-buttons">
+                        <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                            <button type="submit">Play Now</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h4>Pop</h4>
+        <div class="song-list">
+            {% for song in pop_songs %}
+            {% if song.flag == 1 %}
+                <div class="song-card flagged">
+            {% else %}
+                <div class="song-card">
+                    {% endif %}
+                    <div class="song-image">
+                        <img src="../static/hiphop.jpg" alt="{{ song.title }}">
+                    </div>
+                    <div class="song-info">
+                        <h4>{{ song.title }}</h4>
+                        <p class="artist">{{ song.artist }} | {{ song.duration }}</p>
+                        {% if song.flag == 1 %}
+                            <p>*FLAGGED </p>
+                            {% endif %}
+                    </div>
+                    <div class="song-buttons">
+                        <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                            <button type="submit">Play Now</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <h4>Electronic</h4>
+        <div class="song-list">
+            {% for song in electronic_songs %}
+            {% if song.flag == 1 %}
+                <div class="song-card flagged">
+            {% else %}
+                <div class="song-card">
+                    {% endif %}
+                    <div class="song-image">
+                        <img src="../static/iStock-1296169691-scaled.jpg" alt="{{ song.title }}">
+                    </div>
+                    <div class="song-info">
+                        <h4>{{ song.title }}</h4>
+                        <p class="artist">{{ song.artist }} | {{ song.duration }}</p>
+                        {% if song.flag == 1 %}
+                            <p>*FLAGGED</p>
+                            {% endif %}
+                    </div>
+                    <div class="song-buttons">
+                        <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                            <button type="submit">Play Now</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+        <h3>Albums</h3>
+        <div class="playlist-list">
+            {% for album in albums %}
+                <div class="{% if album.flag == 1 %}song-card flagged{% else %}playlist-card{% endif %}">
+                    <div class="playlist-info">
+                        <div class="song-image">
+                            <img src="../static/drums-set-people-man.jpg" alt="{{ album.name }}">
+                        </div>
+                        <h4><a href="{{ url_for('uview_album', album_id=album.id) }}">{{ album.name }}</a></h4>
+                        {% if album.flag == 1 %}
+                            <p> *FLAGGED </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    <style>
+        
+
+        .recommended-songs,
+        .playlists,
+        .genres {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .song-list {
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .song-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-right: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .song-card:hover {
+            transform: scale(1.05);
+        }
+
+        .song-image {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .song-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-info {
+            text-align: left;
+        }
+
+        .song-info h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .song-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .song-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+
+
+        .playlist-list {
+        display: flex;
+        overflow-x: auto;
+        margin: 5px;
+    }
+
+    .playlist-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-right: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex: 0 0 auto;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .playlist-card:hover {
+        transform: scale(1.05);
+    }
+
+    .playlist-info {
+        text-align: left;
+    }
+
+    .playlist-info h4 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .playlist-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .delete-button {
+        color: #fff;
+        background-color: #ff4444;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    .playlist-button {
+        color: #fff;
+        background-color: #cbc503;
+        padding: 5px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    .flagged {
+            background-color: #ffcccc; 
+        }
+        .dashboard-container {
+            background-color: #e3dac9; /* Set the background color for the dashboard container */
+            padding: 20px;}
+    </style>
+{% endblock %}

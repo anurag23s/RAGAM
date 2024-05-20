@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your App{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3dac9 ;
+            color: #333;
+        }
+
+        header {
+            background: url('/static/download.jpeg') center center no-repeat;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px;
+            width: 120px; 
+        }
+
+        .user-greeting {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .profile-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-button, .logout-button {
+            margin-right: 10px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .profile-button {
+            background-color: #5e29b9;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logout-button {
+            background-color: #c0392b;
+            color: #fff;
+        }
+
+        .search-bar {
+            margin: 20px 0;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 20px;
+        }
+
+        .search-button {
+            padding: 8px 15px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{{ url_for('dashboard') }}" class="logo"><img src="/static/logo.png" alt="RAGAM Logo"></a>
+        <div class="user-greeting"> {% block user_greeting %}{% endblock %}</div>
+        
+        <div class="profile-buttons">
+            <div class="search-bar">
+                <form method="get" action="{{ url_for('search_results') }}" class="search-form">
+                    <input type="text" name="query" class="search-input" placeholder="Search songs...">
+                    <input type="submit" value="Search" class="search-button">
+                </form>
+            </div>
+            {% block creator_profile_button %}
+                {% if session['is_creator'] %}
+                    <a href="{{ url_for('creator_profile') }}" class="profile-button">Creator Profile</a>
+                {% else %}
+                    <a href="{{ url_for('uploadsong') }}" class="profile-button">Register as Creator?</a>
+                {% endif %}
+            {% endblock %}
+            <a href="{{ url_for('profile') }}" class="profile-button">Profile</a>
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </header>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+
+</html>

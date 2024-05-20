@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Songs by Genre - {{ genre }}{% endblock %}
+
+{% block content %}
+    <h2>Songs by Genre - {{ genre }}</h2>
+
+    <div class="song-list">
+        {% for song in songs %}
+            <div class="song-card">
+                <div class="song-info">
+                    <h4>{{ song.title }}</h4>
+                    <p class="artist">{{ song.artist }}</p>
+                    <p class="duration">{{ song.duration }}</p>
+                </div>
+                <div class="song-buttons">
+                    <form method="get" action="{{ url_for('read_lyrics', song_id=song.id) }}" style="display:inline;">
+                        <button type="submit">Play Now</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

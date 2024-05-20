@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <style>
+        body {
+            background: url('/static/jens-thekkeveettil-dBWvUqBoOU8-unsplash.jpg') center center no-repeat;;
+            background-size: cover; 
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #fff9ed;
+            font-weight: bolder;
+            font-size: 100px;
+        }
+        h1 {
+            color: #000000;
+            font-weight: bolder;
+            font-size: 100px;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            
+        }
+
+        .card {
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 300px;
+            background-color: #fff;
+            opacity: 90%;
+        }
+
+        .register-button,
+        .user-login-button,
+        .admin-login-button {
+            background-color: #0d7124;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 25px;
+        }
+
+        .user-login-button {
+            background-color: #dd8b11;
+        }
+
+        .admin-login-button {
+            background-color: #dc3545;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .register-link {
+            color: #28a745;
+        }
+
+        .user-login-link {
+            color: #17a2b8;
+        }
+
+        .admin-login-link {
+            color: #dc3545;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+<body>
+    <h2>Welcome, to Ragam!</h2>
+
+    <div class="container">
+        <div class="card-container">
+            <div class="card register-link">
+                <div class="card-body">
+                    <button class="register-button"><a href="{{ url_for('register') }}">Register</a></button>
+                    <p>Haven't registered yet? Register now!</p>
+                </div>
+            </div>
+
+            <div class="card user-login-link">
+                <div class="card-body">
+                    <button class="user-login-button"><a href="{{ url_for('user_login') }}">User Login</a></button>
+                    <p>Already registered? Log in here.</p>
+                </div>
+            </div>
+
+            <div class="card admin-login-link">
+                <div class="card-body">
+                    <button class="admin-login-button"><a href="{{ url_for('admin_login') }}">Admin Login</a></button>
+                    <p>Admin access? Log in to manage!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

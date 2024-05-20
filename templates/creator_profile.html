@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}Creator Profile{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Profile</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(/static/music-guitar-performance-electric-guitar.jpg); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .dashboard-info {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+      box-sizing: border-box;
+    }
+
+    .col-md-4 {
+      width: 30%;
+      margin-bottom: 20px;
+    }
+
+    .col-md-8 {
+      width: 65%;
+      margin-left: 20px;
+    }
+
+    h4 {
+      color: #555;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .song-name {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .album-name {
+      color: #555;
+      font-style: italic;
+      display: inline-block;
+      background-color: #f8f9fa;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>{{ session['name'] }}'s Creator Profile</h2>
+
+    <div class="dashboard-info">
+      <div class="col-md-4">
+        <h4>Statistics</h4>
+        <p>Total Songs Uploaded: {{ total_songs }}</p>
+        <div>
+          <h3>Average Rating: {{ average_rating }}</h3>
+        </div>
+        <div class="col-md-12">
+          {% if session['blacklist'] == 1 %}
+            
+            <p>You have been blacklisted.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <h4>Uploaded Songs</h4>
+        <ul>
+          {% for song in uploaded_songs %}
+            <li><span class="song-name">{{ song.title }}</span> - <span class="album-name">{{ song.album.name if song.album else 'No Album' }}</span>
+              <a href="{{ url_for('edit_song', song_id=song.id) }}" class="btn btn-warning btn-sm">Edit</a>
+              <a href="{{ url_for('delete_song', song_id=song.id) }}" class="btn btn-danger btn-sm">Delete</a></li>
+          {% endfor %}
+        </ul>
+        <div class="col-md-12">
+          {% if session['blacklist'] == 0 %}
+            <a href="{{ url_for('uploadsong') }}" class="btn btn-primary">Upload Song</a>
+          {% else %}
+            <p>You can't upload songs, as you have been blacklisted.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        {% if creator_albums %}
+          <h2>Creator's Albums</h2>
+          <ul>
+            {% for album in creator_albums %}
+              <li><a href="{{ url_for('view_album', album_id=album.id) }}" class="album-name">{{ album.name }}</a></li>
+            {% endfor %}
+          </ul>
+          <div class="col-md-12">
+            <a href="{{ url_for('create_album') }}" class="btn btn-primary">Create Album</a>
+          </div>
+        {% else %}
+          
+          <div class="col-md-12">
+            <p>No albums created yet.</p>
+            <a href="{{ url_for('create_album') }}" class="btn btn-primary">Create Album</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+{% endblock %}

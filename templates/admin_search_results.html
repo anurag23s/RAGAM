@@ -1,0 +1,73 @@
+{% extends 'admin_base.html' %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="admin-content" style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    <style>
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #343a40;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h2>Admin Search Results for "{{ query }}"</h2>
+
+    <ul>
+        {% for result in results %}
+            <li>
+                {{ result.title }} by {{ result.artist}}
+                <form method="post" action="{{ url_for('aread_lyrics', song_id=result.id) }}">
+                    <button type="submit" style="background-color: #54e70a;">Play Now</button>
+                </form>
+                <form method="post" action="{{ url_for('flag_song', song_id=result.id) }}">
+                    <button type="submit" style="background-color: #ae9f00;">Flag</button>
+                </form>
+                <form method="post" action="{{ url_for('delete_asong', song_id=result.id) }}">
+                    <button type="submit" style="background-color: #dc3545;">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+</div>
+{% endblock %}

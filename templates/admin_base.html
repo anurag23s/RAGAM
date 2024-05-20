@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin App{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(/static/wallpaperflare.com_wallpaper.jpg); 
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        
+        }
+
+        .logo img {
+            height: 80px;
+            width: 80px; 
+            margin-top: 10px;
+            margin-left: 50px ;
+        }
+
+        .search-bar {
+            margin: 20px 0;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 5px;
+        }
+
+        .search-button {
+            padding: 5px 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        logout-button {
+            background-color: #c0392b;
+            color: #fff;
+            border-radius: 50px;
+            margin-right: 50px;
+        }
+        .view-button {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px; 
+        margin-right: 30px;
+    }
+
+        
+
+    </style>
+</head>
+
+<body>
+    <div class="admin-header">
+        <a href="{{ url_for('admin_dashboard') }}" class="logo"><img src="/static/logo.png" alt="RAGAM Logo"></a>
+        <form action="{{ url_for('admin_search_results') }}" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        
+        <div class="profile-buttons">
+            <a href="{{ url_for('songs_and_albums') }}" class="view-button">View Songs, Albums and Artists</a>
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+
+</html>

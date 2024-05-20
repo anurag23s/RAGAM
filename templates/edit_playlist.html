@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Playlist: {{ playlist.name }}{% endblock %}
+
+{% block content %}
+    <div style="max-width: 600px; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; margin-bottom: 20px; color: #007bff;">Edit Playlist: {{ playlist.name }}</h2>
+        <form method="post" action="{{ url_for('edit_playlist', playlist_id=playlist.id) }}" style="margin-bottom: 20px;">
+            <div style="margin-bottom: 15px;">
+                <label for="playlist_name" style="display: block; margin-bottom: 5px; color: #495057; font-weight: bold;">Playlist Name:</label>
+                <input type="text" name="playlist_name" style="width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 4px; box-sizing: border-box;" value="{{ playlist.name }}" required>
+            </div>
+
+            <h3 style="color: #007bff;">Select Songs:</h3>
+            {% for song in songs %}
+                <div style="margin-bottom: 10px;">
+                    <input type="checkbox" name="selected_songs" value="{{ song.id }}" {% if song in playlist.songs %}checked{% endif %} style="margin-right: 5px;">
+                    {{ song.title }} - {{ song.artist }} ({{ song.duration }})
+                </div>
+            {% endfor %}
+
+            <input type="submit" value="Save Changes" style="background-color: #007bff; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">
+        </form>
+    </div>
+{% endblock %}

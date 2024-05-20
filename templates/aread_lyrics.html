@@ -1,0 +1,70 @@
+{% extends 'admin_base.html' %}
+
+{% block title %}{{ song.title }} - Lyrics{% endblock %}
+
+{% block content %}
+<div class="admin-content" style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border: 1px solid #dee2e6; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+    <style>
+        .container {
+            text-align: left;
+        }
+
+        h3 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #343a40;
+        }
+
+        strong {
+            color: #007bff;
+        }
+
+        .audio-player {
+            margin-top: 20px;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <div class="container">
+        <h3>{{ song.title }}</h3>
+
+        <p>
+            <strong>Details:</strong><br>
+            <span>{{ song.artist }} | {{ song.duration }} | Upload Date: {{ song.date_created.strftime('%d-%m-%Y') }}
+                | Average Rating: {% if song.ratings %}{{ song.ratings|average }}{% else %}Not Rated{% endif %}</span>
+        </p>
+
+        <div class="audio-player">
+            <audio controls>
+                <source src="../{{song.file_path.replace('\\', '/') }}"" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <pre>{{ song.lyrics }}</pre>
+
+        <div class="navigation-buttons">
+            <a href="{{ url_for('songs_and_albums') }}" style="color: #007bff; text-decoration: none; display: inline-block; margin-top: 20px;">Back to Songs and Albums</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
