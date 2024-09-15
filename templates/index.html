@@ -8,82 +8,97 @@
 
     <style>
         body {
-            background: url('/static/jens-thekkeveettil-dBWvUqBoOU8-unsplash.jpg') center center no-repeat;;
+            background: url('/static/jens-thekkeveettil-dBWvUqBoOU8-unsplash.jpg') center center no-repeat;
             background-size: cover; 
             background-attachment: fixed;
-            font-family: 'Arial', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             text-align: center;
             padding: 40px;
+            color: #f4f4f9;
         }
 
         h2 {
-            color: #fff9ed;
-            font-weight: bolder;
-            font-size: 100px;
-        }
-        h1 {
-            color: #000000;
-            font-weight: bolder;
-            font-size: 100px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 80px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 0;
         }
 
         .container {
-            margin-top: 30px;
+            margin-top: 60px;
         }
 
         .card-container {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin-top: 20px;
-            
+            margin-top: 40px;
         }
 
         .card {
             border: none;
-            border-radius: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             display: inline-block;
-            width: 300px;
-            background-color: #fff;
-            opacity: 90%;
+            width: 320px;
+            background-color: rgba(255, 255, 255, 0.95);
+            transition: transform 0.3s ease-in-out;
         }
 
-        .register-button,
-        .user-login-button,
-        .admin-login-button {
-            background-color: #0d7124;
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background-color: #4caf50;
             color: #fff;
-            padding: 10px;
+            padding: 15px;
             border: none;
             cursor: pointer;
             width: 100%;
             border-radius: 5px;
-            font-size: 25px;
+            font-size: 22px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #388e3c;
         }
 
         .user-login-button {
-            background-color: #dd8b11;
+            background-color: #ff9800;
+        }
+
+        .user-login-button:hover {
+            background-color: #e65100;
         }
 
         .admin-login-button {
-            background-color: #dc3545;
+            background-color: #f44336;
+        }
+
+        .admin-login-button:hover {
+            background-color: #c62828;
         }
 
         .card-body {
-            padding: 20px;
+            padding: 25px;
         }
 
-        .register-link {
-            color: #28a745;
+        p {
+            color: #333;
+            font-size: 18px;
         }
 
-        .user-login-link {
-            color: #17a2b8;
+        .register-link a, .user-login-link a, .admin-login-link a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        .admin-login-link {
-            color: #dc3545;
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -95,33 +110,53 @@
                 {% endfor %}
             </ul>
         {% endif %}
-    {% endwith %}
+{% endwith %}
 <body>
-    <h2>Welcome, to Ragam!</h2>
+    <h2>Welcome to Ragam!</h2>
 
     <div class="container">
         <div class="card-container">
+            <!-- Register Card -->
             <div class="card register-link">
                 <div class="card-body">
-                    <button class="register-button"><a href="{{ url_for('register') }}">Register</a></button>
+                    <button class="register-button">
+                        <a href="{{ url_for('register') }}">Register</a>
+                    </button>
                     <p>Haven't registered yet? Register now!</p>
                 </div>
             </div>
 
+            <!-- User Login Card -->
             <div class="card user-login-link">
                 <div class="card-body">
-                    <button class="user-login-button"><a href="{{ url_for('user_login') }}">User Login</a></button>
+                    <button class="user-login-button">
+                        <a href="{{ url_for('user_login') }}">User Login</a>
+                    </button>
                     <p>Already registered? Log in here.</p>
                 </div>
             </div>
 
+            <!-- Admin Login Card -->
             <div class="card admin-login-link">
                 <div class="card-body">
-                    <button class="admin-login-button"><a href="{{ url_for('admin_login') }}">Admin Login</a></button>
+                    <button class="admin-login-button">
+                        <a href="{{ url_for('admin_login') }}">Admin Login</a>
+                    </button>
                     <p>Admin access? Log in to manage!</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const welcomeText = document.querySelector("h2");
+            welcomeText.style.opacity = 0;
+            setTimeout(() => {
+                welcomeText.style.transition = "opacity 2s ease-in-out";
+                welcomeText.style.opacity = 1;
+            }, 500);
+        });
+    </script>
 </body>
 </html>

@@ -39,7 +39,7 @@ class Song(db.Model):
         if self.ratings:
             ratings = [rating.rating for rating in self.ratings]
             if ratings:
-                return sum(ratings) / len(ratings)
+                return round(sum(ratings) / len(ratings),2)
 
         return 0.0
         #average_rating = db.Column(db.Float, default=0.0)

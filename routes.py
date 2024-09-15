@@ -391,7 +391,7 @@ def creator_profile():
         
         total_ratings = sum(song.average_rating for song in creator_songs)
         average_rating = total_ratings / len(creator_songs) if len(creator_songs) > 0 else 0.0
-
+        average_rating = round(average_rating, 2)
         
         total_songs = len(creator_songs)
 
