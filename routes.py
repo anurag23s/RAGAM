@@ -609,7 +609,7 @@ def admin_dashboard():
         
         days = [datetime.strptime(day, '%Y-%m-%d').date() for day in days]
 
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(6, 5))
         plt.stem(date2num(days), song_counts, markerfmt='C3o', linefmt='C3-', basefmt='C0-')
         plt.xlabel('Day')
         plt.ylabel('Number of Songs Uploaded')
